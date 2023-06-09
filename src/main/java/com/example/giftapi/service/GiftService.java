@@ -13,7 +13,7 @@ public class GiftService {
 
     private final GiftRepository giftRepository;
 
-    public GiftDto save(CreateGiftCommand command) {
+    public GiftDto save(int kidId, CreateGiftCommand command) {
         Gift toSave = command.toEntity();
         Gift saved = giftRepository.save(toSave);
         return GiftDto.fromEntity(saved);
