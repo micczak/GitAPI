@@ -2,9 +2,9 @@ package com.example.giftapi.model.command;
 
 import com.example.giftapi.model.Gift;
 import lombok.Data;
-import org.antlr.v4.runtime.misc.NotNull;
 
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
 @Data

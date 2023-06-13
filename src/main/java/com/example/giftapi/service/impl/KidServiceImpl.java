@@ -1,5 +1,6 @@
 package com.example.giftapi.service.impl;
 
+import com.example.giftapi.mapper.KidMapper;
 import com.example.giftapi.model.Kid;
 import com.example.giftapi.model.command.CreateKidCommand;
 import com.example.giftapi.model.command.UpdateKidCommand;
@@ -18,6 +19,7 @@ import java.util.List;
 public class KidServiceImpl implements KidService {
 
     private final KidRepository kidRepository;
+    private final KidMapper kidMapper;
 
     @Override
     public KidDto save(CreateKidCommand command) {
@@ -47,8 +49,11 @@ public class KidServiceImpl implements KidService {
     public KidDto update(int id, UpdateKidCommand command){
         Kid kidToUpdate = kidRepository.findById(id)
                 .orElseThrow(()-> new EntityNotFoundException(MessageFormat.format("Kid with id={0} not found", id)));
-        Kid saved = kidRepository.save(kidToUpdate);
-        return KidDto.fromEntity(saved);
+        kidMapper.update(command, kidToUpdate);
+        return kidMapper.toDto(kidRepository.save(kidToUpdate));
     }
+    //TODO ZROBIĆ MAPER GIFTÓW
+    //TODO walidacja, logika, testy, idiotoodporność taka sytuacja
+
 
 }
