@@ -1,10 +1,7 @@
 package com.example.giftapi.model;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
 
 @AllArgsConstructor
@@ -20,4 +17,8 @@ public class Gift {
 
     private String name;
     private double price;
+
+    @ManyToOne
+    @JoinColumn(name="kid_id")
+    private Kid kid;
 }

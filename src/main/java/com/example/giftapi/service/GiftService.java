@@ -1,22 +1,21 @@
 package com.example.giftapi.service;
 
-import com.example.giftapi.model.Gift;
 import com.example.giftapi.model.command.CreateGiftCommand;
 import com.example.giftapi.model.dto.GiftDto;
-import com.example.giftapi.repository.GiftRepository;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
 
-@Service
-@RequiredArgsConstructor
-public class GiftService {
+import com.example.giftapi.model.command.CreateGiftCommand;
+import com.example.giftapi.model.dto.GiftDto;
 
-    private final GiftRepository giftRepository;
+import java.util.List;
 
-    public GiftDto save(int kidId, CreateGiftCommand command) {
-        Gift toSave = command.toEntity();
-        Gift saved = giftRepository.save(toSave);
-        return GiftDto.fromEntity(saved);
-    }
+public interface GiftService {
+    GiftDto save(int kidId, CreateGiftCommand command);
 
+    List<GiftDto> getGiftsForKid(int kidId);
+
+    GiftDto getGiftForKid(int kidId, int giftId);
+
+    GiftDto updateGiftForKid(int kidId, int giftId, CreateGiftCommand command);
+
+    void deleteGiftForKid(int kidId, int giftId);
 }

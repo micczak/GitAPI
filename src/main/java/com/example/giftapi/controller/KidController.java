@@ -13,7 +13,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.net.URI;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @RestController
@@ -26,24 +28,26 @@ public class KidController {
 
     @PostMapping
     public ResponseEntity<KidDto> save(@Valid @RequestBody CreateKidCommand createKidCommand) {
-        return new ResponseEntity<>(kidService.save(createKidCommand), HttpStatus.CREATED);
+        KidDto createdKid = kidService.save(createKidCommand);
+        return ResponseEntity.created(URI.create("/api/v1/kids/" + createdKid.getId())).body(createdKid);
     }
 
     @GetMapping("/{id}")
-    public KidDto findById(@PathVariable int id) {
-        return kidService.findById(id);
+    public ResponseEntity<KidDto> findById(@PathVariable int id) {
+        return ResponseEntity.ok(kidService.findById(id));
     }
 
     @GetMapping
-    public List<KidDto> findAll(){
-        return kidService.findAll().stream()
+    public ResponseEntity<List<KidDto>> findAll(){
+        List<KidDto> kids = kidService.findAll().stream()
                 .map(KidDto::fromEntity)
-                .toList();
+                .collect(Collectors.toList());
+        return ResponseEntity.ok(kids);
     }
 
     @PutMapping("/{id}")
-    public KidDto update(@PathVariable int id, @RequestBody UpdateKidCommand command){
-        return kidService.update(id, command);
+    public ResponseEntity<KidDto> update(@PathVariable int id, @RequestBody UpdateKidCommand command){
+        return ResponseEntity.ok(kidService.update(id, command));
     }
 
     @DeleteMapping("/{id}")
@@ -53,9 +57,30 @@ public class KidController {
     }
 
     @PostMapping("/{kidId}/gifts")
-    public GiftDto saveGift(@PathVariable int kidId, @RequestBody CreateGiftCommand command) {
-        return giftService.save(kidId, command);
+    public ResponseEntity<GiftDto> saveGift(@PathVariable int kidId, @RequestBody CreateGiftCommand command) {
+        GiftDto createdGift = giftService.save(kidId, command);
+        return ResponseEntity.created(URI.create("/api/v1/kids/" + kidId + "/gifts/" + createdGift.getId())).body(createdGift);
     }
 
+    @GetMapping("/{kidId}/gifts")
+    public ResponseEntity<List<GiftDto>> getGifts(@PathVariable int kidId) {
+        List<GiftDto> gifts = giftService.getGiftsForKid(kidId);
+        return ResponseEntity.ok(gifts);
+    }
 
+    @GetMapping("/{kidId}/gifts/{giftId}")
+    public ResponseEntity<GiftDto> getGift(@PathVariable int kidId, @PathVariable int giftId) {
+        return ResponseEntity.ok(giftService.getGiftForKid(kidId, giftId));
+    }
+
+    @PutMapping("/{kidId}/gifts/{giftId}")
+    public ResponseEntity<GiftDto> updateGift(@PathVariable int kidId, @PathVariable int giftId, @RequestBody CreateGiftCommand command) {
+        return ResponseEntity.ok(giftService.updateGiftForKid(kidId, giftId, command));
+    }
+
+    @DeleteMapping("/{kidId}/gifts/{giftId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteGift(@PathVariable int kidId, @PathVariable int giftId) {
+        giftService.deleteGiftForKid(kidId, giftId);
+    }
 }
