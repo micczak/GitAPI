@@ -50,10 +50,7 @@ public class KidServiceImpl implements KidService {
         Kid kidToUpdate = kidRepository.findById(id)
                 .orElseThrow(()-> new EntityNotFoundException(MessageFormat.format("Kid with id={0} not found", id)));
         kidMapper.update(command, kidToUpdate);
-        return kidMapper.toDto(kidRepository.save(kidToUpdate));
+        Kid updatedKid = kidRepository.save(kidToUpdate);
+        return KidDto.fromEntity(updatedKid);
     }
-    //TODO ZROBIĆ MAPER GIFTÓW
-    //TODO walidacja, logika, testy, idiotoodporność taka sytuacja
-
-
 }

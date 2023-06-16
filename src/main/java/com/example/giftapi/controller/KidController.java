@@ -34,7 +34,12 @@ public class KidController {
 
     @GetMapping("/{id}")
     public ResponseEntity<KidDto> findById(@PathVariable int id) {
-        return ResponseEntity.ok(kidService.findById(id));
+        KidDto kidDto = kidService.findById(id);
+        if (kidDto != null) {
+            return ResponseEntity.ok(kidDto);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @GetMapping
@@ -47,8 +52,14 @@ public class KidController {
 
     @PutMapping("/{id}")
     public ResponseEntity<KidDto> update(@PathVariable int id, @RequestBody UpdateKidCommand command){
-        return ResponseEntity.ok(kidService.update(id, command));
+        KidDto updatedKidDto = kidService.update(id, command);
+        if (updatedKidDto != null) {
+            return ResponseEntity.ok(updatedKidDto);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
+
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)

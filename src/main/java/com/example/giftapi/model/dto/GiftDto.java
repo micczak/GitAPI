@@ -1,11 +1,15 @@
 package com.example.giftapi.model.dto;
 
 import com.example.giftapi.model.Gift;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class GiftDto {
     private int id;
     private String name;
