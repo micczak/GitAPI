@@ -1,7 +1,10 @@
 spring:
   datasource:
-    url: jdbc:h2:mem:testdb
-    username: user
-    password: password
-    driverClassName: org.h2.Driver
-
+    url: jdbc:mysql://localhost:3308/gift_api_db
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  liquibase:
+    change-log: classpath:liquibase/changelog.xml
+    enabled: true
+    drop-first: true
