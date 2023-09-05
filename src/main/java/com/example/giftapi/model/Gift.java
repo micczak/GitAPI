@@ -21,4 +21,5 @@ public class Gift {
     @ManyToOne
     @JoinColumn(name="kid_id")
     private Kid kid;
+
 }

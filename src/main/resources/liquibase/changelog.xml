@@ -5,5 +5,6 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog	https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
 
     <include file="changelog/0001-creating-tables.xml" relativeToChangelogFile="true"/>
+    <include file="changelog/0002-creating-gift-table.xml" relativeToChangelogFile="true"/>
 
 </databaseChangeLog>
