@@ -19,7 +19,6 @@ public class Gift {
     private double price;
 
     @ManyToOne
-    @JoinColumn(name="kid_id")
+    @JoinColumn(name = "kid_id")
     private Kid kid;
-
 }

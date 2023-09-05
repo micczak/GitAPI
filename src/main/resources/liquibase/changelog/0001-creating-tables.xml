@@ -9,9 +9,28 @@
             <column name="id" type="int" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="birthDate" type="datetime"></column>
-            <column name="name" type="varchar(20)"></column>
-            <column name="surname" type="varchar(40)"></column>
+            <column name="birthDate" type="datetime"/>
+            <column name="name" type="varchar(20)"/>
+            <column name="surname" type="varchar(40)"/>
         </createTable>
+    </changeSet>
+
+    <changeSet id="0002-creating-gift-table" author="jasfasola">
+        <createTable tableName="gift">
+            <column name="id" type="int" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="varchar(255)"/>
+            <column name="price" type="decimal(10,2)"/>
+            <column name="kid_id" type="int">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addForeignKeyConstraint baseTableName="gift"
+                                 baseColumnNames="kid_id"
+                                 constraintName="fk_gift_kid"
+                                 referencedTableName="kid"
+                                 referencedColumnNames="id"/>
     </changeSet>
 </databaseChangeLog>
