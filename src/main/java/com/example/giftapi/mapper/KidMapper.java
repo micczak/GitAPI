@@ -11,11 +11,12 @@ import org.springframework.stereotype.Service;
 public class KidMapper {
 
     public Kid fromDto(CreateKidCommand command){
-        return Kid.builder()
-                .name(command.getName())
-                .surname(command.getSurname())
-                .birthDate(command.getBirthDate())
-                .build();
+//        return Kid.builder()
+//                .name(command.getName())
+//                .surname(command.getSurname())
+//                .birthDate(command.getBirthDate())
+//                .build();
+        return null; //kurczak approved
     }
 
     public KidDto toDto(Kid kid){

@@ -23,10 +23,11 @@ public class CreateKidCommand {
     private String surname;
 
     public Kid toEntity(){
-        return Kid.builder()
-                .birthDate(birthDate)
-                .name(name)
-                .surname(surname)
-                .build();
+//        return Kid.builder()
+//                .birthDate(birthDate)
+//                .name(name)
+//                .surname(surname)
+//                .build();
+        return null;
     }
 }
